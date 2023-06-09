@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,14 +17,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text gameoverUI;
     [SerializeField] private Text timeUI;
 
+    [SerializeField] private Spawner DogSpawner;
     [SerializeField] private Spawner TrashSpawner;
     [SerializeField] private Spawner TrashSpawner1;
     [SerializeField] private Spawner TrashSpawner2;
+    [SerializeField] private Spawner TrashSpawner3;
 
     private FirstObject elementDetector;
     [SerializeField] private float ObjectMoveForceLeft;
     [SerializeField] private float ObjectMoveForceRight;
     [SerializeField] private float ObjectMoveForceUp;
+
+    [SerializeField] private GameObject SidPrefab;
+    [SerializeField] private GameObject TerraneitorPrefab;
+    [SerializeField] private GameObject BlanquiNegroPrefab;
+
+     public Dictionary<string, GameObject> dogPrefabs;
+
+
     // Patrón Singleton para acceder al GameManager desde otros scripts
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
@@ -48,6 +59,7 @@ public class GameManager : MonoBehaviour
         gameoverUI.enabled = false; 
         TrashSpawner1.enabled = false;
         TrashSpawner2.enabled = false; 
+        TrashSpawner3.enabled = false;
         time = 0;
         
     }
@@ -59,15 +71,21 @@ public class GameManager : MonoBehaviour
         if (score <= 0) { scoreUI.text = $"Score:0"; score = 0; }
         else if (score > 0) { scoreUI.text = $"Score:{score.ToString()}"; }
         
-        #region Spawners
+        #region Difficulty Over Time
         switch (time)
         {
             case > 50 when time <= 100:
                 TrashSpawner1.enabled = true;
-                break;
+                DogSpawner.spawnInterval = 2;
+                break; 
 
-            case > 100:
+            case > 100 when time <= 200:
                 TrashSpawner2.enabled = true;
+                DogSpawner.spawnInterval = 1.5f;
+                break;
+            case > 200:
+                TrashSpawner3.enabled = true;
+                DogSpawner.spawnInterval = 1;
                 break;
         }
         #endregion
@@ -78,8 +96,8 @@ public class GameManager : MonoBehaviour
 
             if (firstElement != null)
             {
-                Rigidbody2D rb2d = firstElement.GetComponent<Rigidbody2D>();
-
+                Rigidbody2D rb2d = firstElement.GetComponent<Rigidbody2D>();    
+                string objectTag = firstElement.tag;
 
                 if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
                 {
@@ -93,6 +111,82 @@ public class GameManager : MonoBehaviour
                     rb2d.AddForce(Vector2.right * ObjectMoveForceRight, ForceMode2D.Impulse);
                     rb2d.AddForce(Vector2.up * ObjectMoveForceUp, ForceMode2D.Impulse);
                 }
+                
+                int dogLayer = firstElement.gameObject.layer;
+
+                if (dogLayer == LayerMask.NameToLayer("Hat"))
+                {
+                    if (Input.GetKeyDown(KeyCode.Z))
+                    {
+                        string dogName = GetDogName(firstElement);
+
+                        if (dogName == "Terraneitor")
+                        {
+                            Instantiate(TerraneitorPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+                        else if (dogName == "Sid")
+                        {
+                            Instantiate(SidPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+                        else if (dogName == "BlanquiNegro")
+                        {
+                            Instantiate(BlanquiNegroPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+
+                    }
+                }
+                else if (dogLayer == LayerMask.NameToLayer("Scarf"))
+                {
+                    if (Input.GetKeyDown(KeyCode.X))
+                    {
+                        string dogName = GetDogName(firstElement);
+
+                        if (dogName == "Terraneitor")
+                        {
+                            Instantiate(TerraneitorPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+                        else if (dogName == "Sid")
+                        {
+                            Instantiate(SidPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+                        else if (dogName == "BlanquiNegro")
+                        {
+                            Instantiate(BlanquiNegroPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+
+                    }
+                }
+                else if (dogLayer == LayerMask.NameToLayer("Boot"))
+                {
+                    if (Input.GetKeyDown(KeyCode.C))
+                    {
+                        string dogName = GetDogName(firstElement);
+
+                        if (dogName == "Terraneitor")
+                        {
+                            Instantiate(TerraneitorPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+                        else if (dogName == "Sid")
+                        {
+                            Instantiate(SidPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+                        else if (dogName == "BlanquiNegro")
+                        {
+                            Instantiate(BlanquiNegroPrefab, firstElement.transform.position, firstElement.transform.rotation);
+                            Destroy(firstElement);
+                        }
+
+                    }
+                }
+
             }
         }
         #endregion
@@ -136,5 +230,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-   
+    string GetDogName(GameObject dogObject)
+    {
+        // Obtener el nombre del GameObject
+        string dogName = dogObject.tag;
+
+        // Devolver el nombre del perro
+        return dogName;
+    }
+
 }

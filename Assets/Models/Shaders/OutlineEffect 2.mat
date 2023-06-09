@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineEffect
-  m_Shader: {fileID: -6465566751694194690, guid: d8cb8695eea8e4c4b905c3226411bee9, type: 3}
+  m_Name: OutlineEffect 2
+  m_Shader: {fileID: -6465566751694194690, guid: 930fca6e2ecbba84d952ac05bca82077, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -25,7 +25,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 801870baf3db2754daec4db367067c1d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -53,7 +53,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Thickness: 8
+    - _Thickness: 9
     m_Colors:
     - _Color: {r: 1, g: 0.7764706, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}

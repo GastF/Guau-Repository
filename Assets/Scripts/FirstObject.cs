@@ -16,13 +16,13 @@ public class FirstObject : MonoBehaviour
 
     private void Start()
     {
-        objectsInBeltLayer = LayerMask.GetMask("ObjectsInBelt");
+        
     }
 
     private void Update()
     {
         Vector2 rayDirection = Vector2.right;
-        RaycastHit2D hit = Physics2D.Raycast(rayCastPlace.position, rayDirection, detectionRange, objectsInBeltLayer);
+        RaycastHit2D hit = Physics2D.Raycast(rayCastPlace.position, rayDirection, detectionRange);
 
         Debug.DrawRay(rayCastPlace.position, rayDirection * detectionRange, Color.red);
 

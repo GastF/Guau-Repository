@@ -4,9 +4,15 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Dog
   - FxTemporaire
   - fx
+  - Dog/Hat
+  - Dog/Scarf
+  - Dog/Boot
+  - Sid
+  - Terraneitor
+  - BlanquiNegro
+  - DogClothed
   layers:
   - Default
   - TransparentFX
@@ -14,10 +20,10 @@ TagManager:
   - ObjectsInBelt
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Hat
+  - Scarf
+  - Boot
+  - DogClothed
   - 
   - 
   - 

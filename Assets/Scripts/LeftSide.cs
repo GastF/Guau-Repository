@@ -9,7 +9,7 @@ public class LeftSide : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Dog"))  // Comprueba si el objeto tiene la etiqueta "Dog"
+        if (collision.gameObject.layer == LayerMask.NameToLayer("DogClothed"))  // Comprueba si el objeto tiene la etiqueta "Dog"
         {
             // Incrementa los puntajes
             GameManager.Instance.AddScore(10);

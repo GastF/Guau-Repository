@@ -46,7 +46,7 @@ public class Eraser : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         vfxActivator.ActivateVFX(); // Activa el VFX desde el GameObject aparte
-        if (collision.gameObject.CompareTag("Dog"))
+        if (collision.gameObject.CompareTag("Sid") || collision.gameObject.CompareTag("BlanquiNegro") || collision.gameObject.CompareTag("Terraneitor"))
         {
             Debug.Log("dog");
             Destroy(collision.gameObject);
