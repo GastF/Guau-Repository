@@ -21,7 +21,7 @@ public class FirstObject : MonoBehaviour
 
     private void Update()
     {
-        Vector2 rayDirection = Vector2.right;
+        Vector2 rayDirection = Vector2.left;
         RaycastHit2D hit = Physics2D.Raycast(rayCastPlace.position, rayDirection, detectionRange);
 
         Debug.DrawRay(rayCastPlace.position, rayDirection * detectionRange, Color.red);

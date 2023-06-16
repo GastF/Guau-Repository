@@ -6,7 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Eraser : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float spawnInterval = 2f;
+   
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform targetPoint;
     [SerializeField] private VFXActivator vfxActivator;
@@ -18,29 +18,38 @@ public class Eraser : MonoBehaviour
 
     private void MoveObject()
     {
-        transform.position = spawnPoint.position;
-
-        float distance = Vector3.Distance(spawnPoint.position, targetPoint.position);
-        float travelTime = distance / moveSpeed;
-
-        StartCoroutine(MoveRoutine(travelTime));
+        StartCoroutine(OscillateRoutine());
     }
 
-    private IEnumerator MoveRoutine(float travelTime)
+    private IEnumerator OscillateRoutine()
     {
-        yield return new WaitForSeconds(spawnInterval);
+        while (true)
+        {
+            // Mover desde spawnPoint hasta targetPoint
+            float distance = Vector3.Distance(spawnPoint.position, targetPoint.position);
+            float travelTime = distance / moveSpeed;
 
+            yield return StartCoroutine(MoveToPoint(spawnPoint.position, targetPoint.position, travelTime));
+
+            // Mover desde targetPoint hasta spawnPoint
+            distance = Vector3.Distance(targetPoint.position, spawnPoint.position);
+            travelTime = distance / moveSpeed;
+
+            yield return StartCoroutine(MoveToPoint(targetPoint.position, spawnPoint.position, travelTime));
+        }
+    }
+
+    private IEnumerator MoveToPoint(Vector3 startPos, Vector3 targetPos, float travelTime)
+    {
         float elapsedTime = 0f;
         while (elapsedTime < travelTime)
         {
             float t = elapsedTime / travelTime;
-            transform.position = Vector3.Lerp(spawnPoint.position, targetPoint.position, t);
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        MoveObject();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -14,6 +14,10 @@ public class LeftSide : MonoBehaviour
             // Incrementa los puntajes
             GameManager.Instance.AddScore(10);
         }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Hat") || collision.gameObject.layer == LayerMask.NameToLayer("Scarf") || collision.gameObject.layer == LayerMask.NameToLayer("Boot"))
+        {
+            GameManager.Instance.DecreseScore(10);
+        }
         else
         {
             GameManager.Instance.DecreaseHP(1);

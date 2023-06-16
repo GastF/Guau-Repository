@@ -23,7 +23,7 @@ public class ConveyorBelt : MonoBehaviour
         while (isMoving)
         {
             // Mover los objetos
-            belt.GetComponent<SurfaceEffector2D>().speed = -BeltMoveForce;
+            belt.GetComponent<SurfaceEffector2D>().speed = BeltMoveForce;
 
             yield return new WaitForSeconds(BeltMoveInterval);
 
