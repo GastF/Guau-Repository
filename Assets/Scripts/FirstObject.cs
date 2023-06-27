@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class FirstObject : MonoBehaviour
 {
-    [SerializeField] private GameObject firstElement;
+    private GameObject firstElement;
     [SerializeField] private Transform rayCastPlace;
     private LayerMask objectsInBeltLayer;
     public float detectionRange = 14f;
     private bool isDetectingObject = false;
+    private RaycastHit2D hit;
 
     // Referencia al material para resaltar el objeto seleccionado
     [SerializeField] private Material highlightedMaterial;
@@ -22,9 +23,15 @@ public class FirstObject : MonoBehaviour
     private void Update()
     {
         Vector2 rayDirection = Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast(rayCastPlace.position, rayDirection, detectionRange);
+        
+        if (rayCastPlace != null) 
+        {  
+            hit = Physics2D.Raycast(rayCastPlace.position, rayDirection, detectionRange); 
+            Debug.DrawRay(rayCastPlace.position, rayDirection * detectionRange, Color.red);
+        }
+        
 
-        Debug.DrawRay(rayCastPlace.position, rayDirection * detectionRange, Color.red);
+       
 
         if (hit.collider != null)
         {
@@ -58,7 +65,17 @@ public class FirstObject : MonoBehaviour
             }
         }
 
-        Debug.Log(firstElement);
+        // Verificar si el objeto aún existe antes de acceder a su posición
+        if (firstElement != null)
+        {
+            Transform elementTransform = firstElement.transform;
+            if (elementTransform != null)
+            {
+                transform.position = elementTransform.position;
+            }
+        }
+
+      
     }
 
     public GameObject GetFirstElement()
