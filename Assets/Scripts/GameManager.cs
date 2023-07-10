@@ -36,9 +36,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject SidPrefab;
     [SerializeField] private GameObject TerraneitorPrefab;
     [SerializeField] private GameObject BlanquiNegroPrefab;
-    [SerializeField] private GameObject Bulb1;
-    [SerializeField] private GameObject Bulb2;
-    [SerializeField] private GameObject Bulb3;
+
+    [SerializeField] private  Animator bulb;
+    
     [SerializeField] private AudioClip[] sfxClip;
     [SerializeField] private AudioSource sfx;
  
@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         if (instance != null && instance != this)
         {
             Destroy(gameObject); // Evita la creación de múltiples instancias del GameManager
@@ -98,8 +99,9 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         time = 0;
         score = 0;
+        DogSpawner.SpawnObject();
         
-        
+
     }
 
     private void Update()
@@ -112,21 +114,21 @@ public class GameManager : MonoBehaviour
         switch (hp)
         {
             case 0:
-                Bulb3.GetComponent<SpriteRenderer>().color = offColor;
+                bulb.SetTrigger("bublHP3");
                 break;
             case 1:
-                Bulb2.GetComponent<SpriteRenderer>().color = offColor;
+                bulb.SetTrigger("bublHP2");
                 break;
             case 2:
-                Bulb1.GetComponent<SpriteRenderer>().color = offColor;
+                bulb.SetTrigger("bublHP1");
                 break;
         }
         #region Difficulty Over Time
         switch (time)
         {
             case > 25 when time <= 50:
-                DogSpawner.spawnInterval = 2f;
-                Debug.Log("Dog Spawn Interval = 2");
+                DogSpawner.spawnInterval = 4f;
+                Debug.Log("Dog Spawn Interval = 4");
                 break;
             case > 50 when time <= 75:
                 TrashSpawner1.enabled = true;
@@ -134,22 +136,27 @@ public class GameManager : MonoBehaviour
                 break;
             case > 75 when time <= 100:
 
-                DogSpawner.spawnInterval = 1.9f;
-                Debug.Log("Dog Spawn Interval = 1.9");
+                DogSpawner.spawnInterval = 3f;
+                Debug.Log("3f");
                 break;
             case > 100 when time <= 125:
                 
-                TrashSpawner2.enabled = true;
-                DogSpawner.spawnInterval = 1.85f;
-                Debug.Log("Dog Spawn Interval = 1.85");
+                
+             //   DogSpawner.spawnInterval = 2.2f;
+                Debug.Log("Segundo trash");
                 break;
             case > 125 when time <= 150:
-                DogSpawner.spawnInterval = 1.8f;
-                Debug.Log("Dog Spawn Interval = 1.85");
+                DogSpawner.spawnInterval = 2.5f;
+                Debug.Log("Dog Spawn Interval = 2.5");
                 break;
-            case > 200:
-                Debug.Log("Dog Spawn Interval = 1.7");
-                DogSpawner.spawnInterval = 1.7f;
+            case > 150 when time <= 250:
+                DogSpawner.spawnInterval = 2.3f;
+                Debug.Log("Dog Spawn Interval = 2.3");
+                break;
+            case > 300:
+                TrashSpawner2.enabled = true;
+                Debug.Log("Dog Spawn Interval = 2f");
+                DogSpawner.spawnInterval = 2f;
                 break;
         }
         #endregion
@@ -378,8 +385,8 @@ public class GameManager : MonoBehaviour
         endSfx.enabled = true;
         gameover = true;
         Debug.Log("¡Game Over!");
-        
-        Time.timeScale = 0;
+
+        StartCoroutine(ChangeTimeScaleWithDelay());
         if (score > PlayerPrefs.GetInt("highscore"))
         {
             PlayerPrefs.SetInt("highscore", score);
@@ -408,6 +415,13 @@ public class GameManager : MonoBehaviour
         return dogName;
     }
 
-    
+    private IEnumerator ChangeTimeScaleWithDelay()
+    {
+        // Esperar el delay antes de cambiar el Time.timeScale
+        yield return new WaitForSeconds(1);
+
+        // Cambiar el Time.timeScale a 0
+        Time.timeScale = 0;
+    }
 
 }

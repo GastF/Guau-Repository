@@ -8,6 +8,7 @@ public class LevelSwitch : MonoBehaviour
 {
     public void ChangeLevel(string sceneName)
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(sceneName);
     }
     public void ResumeGame(GameObject pauseMenu)
@@ -21,6 +22,10 @@ public class LevelSwitch : MonoBehaviour
        
         pauseMenu.SetActive(false);
         
+    }
+    public void ExitGame() 
+    {
+        Application.Quit();
     }
     public void restartLevelP(GameObject pauseMenu)
     {

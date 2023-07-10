@@ -6,13 +6,17 @@ public class FirstObject : MonoBehaviour
 {
     private GameObject firstElement;
     [SerializeField] private Transform rayCastPlace;
+
     private LayerMask objectsInBeltLayer;
     public float detectionRange = 14f;
     private bool isDetectingObject = false;
     private RaycastHit2D hit;
 
     // Referencia al material para resaltar el objeto seleccionado
-    [SerializeField] private Material highlightedMaterial;
+    [SerializeField] private Material highlightedMaterialDressed;
+    [SerializeField] private Material highlightedMaterialHat;
+    [SerializeField] private Material highlightedMaterialScarf;
+    [SerializeField] private Material highlightedMaterialBoot;
     private Material originalMaterial; // Almacenar el material original del objeto
 
     private void Start()
@@ -24,6 +28,7 @@ public class FirstObject : MonoBehaviour
     {
         Vector2 rayDirection = Vector2.left;
         
+
         if (rayCastPlace != null) 
         {  
             hit = Physics2D.Raycast(rayCastPlace.position, rayDirection, detectionRange); 
@@ -50,7 +55,31 @@ public class FirstObject : MonoBehaviour
                 originalMaterial = objectRenderer.material;
 
                 // Resaltar el nuevo objeto seleccionado
-                objectRenderer.material = highlightedMaterial;
+                int dogLayer = firstElement.gameObject.layer;
+
+                if (dogLayer == LayerMask.NameToLayer("Hat")) 
+                {
+                    objectRenderer.material = highlightedMaterialHat;
+                }
+                else if (dogLayer == LayerMask.NameToLayer("Scarf")) 
+                {
+                    objectRenderer.material = highlightedMaterialBoot;
+                }
+                else if (dogLayer == LayerMask.NameToLayer("Boot")) 
+                {
+                    objectRenderer.material = highlightedMaterialScarf;
+                   
+                }
+                else if (dogLayer == LayerMask.NameToLayer("DogClothed"))
+                {
+                    objectRenderer.material = highlightedMaterialDressed;
+
+                }
+                else 
+                {
+                    objectRenderer.material = highlightedMaterialDressed;
+                }
+
             }
         }
         else

@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void SpawnObject()
+    public void SpawnObject()
     {
         // Genera un índice aleatorio dentro del rango de la lista de prefabs
         int randomIndex = Random.Range(0, prefabsToSpawn.Count);

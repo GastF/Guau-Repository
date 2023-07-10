@@ -8,6 +8,7 @@ public class ButtonAnimation : MonoBehaviour
    
     public Animator buttonAnimator;
 
+   
      private void Update()
      {
          if (Input.GetKeyDown(KeyCode.Z))
