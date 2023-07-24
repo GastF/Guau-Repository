@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class SlideShow : MonoBehaviour
 {
     public Image image; // Referencia al componente Image donde se muestra la imagen
+    public Text text; // Referencia al componente Text donde se muestra el texto
     public Sprite[] images; // Arreglo de sprites de las imágenes
-    public Image imageSecond; // Referencia al componente Image donde se muestra la imagen
-    public Sprite[] imagesSecond; // Arreglo de sprites de las imágenes
+
+    public string[] dialog; // Arreglo de textos asociados a las imágenes
 
     private int currentIndex = 0; // Índice de la imagen actual
 
@@ -52,7 +54,8 @@ public class SlideShow : MonoBehaviour
         if (index >= 0 && index < images.Length)
         {
             image.sprite = images[index];
-            imageSecond.sprite = imagesSecond[index];
+            text.text = dialog[index];
+            //  imageSecond.sprite = imagesSecond[index];
         }
       
     }

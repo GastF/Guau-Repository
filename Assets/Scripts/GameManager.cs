@@ -126,17 +126,17 @@ public class GameManager : MonoBehaviour
         #region Difficulty Over Time
         switch (time)
         {
-            case > 25 when time <= 50:
+            case > 10 when time <= 35:
                 DogSpawner.spawnInterval = 4f;
                 Debug.Log("Dog Spawn Interval = 4");
                 break;
-            case > 50 when time <= 75:
+            case > 35 when time <= 75:
                 TrashSpawner1.enabled = true;
                
                 break;
             case > 75 when time <= 100:
 
-                DogSpawner.spawnInterval = 3f;
+                DogSpawner.spawnInterval = 3.5f;
                 Debug.Log("3f");
                 break;
             case > 100 when time <= 125:
@@ -146,11 +146,11 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Segundo trash");
                 break;
             case > 125 when time <= 150:
-                DogSpawner.spawnInterval = 2.5f;
-                Debug.Log("Dog Spawn Interval = 2.5");
+                DogSpawner.spawnInterval = 3f;
+                Debug.Log("Dog Spawn Interval = 3");
                 break;
             case > 150 when time <= 250:
-                DogSpawner.spawnInterval = 2.3f;
+                DogSpawner.spawnInterval = 2.5f;
                 Debug.Log("Dog Spawn Interval = 2.3");
                 break;
             case > 300:
