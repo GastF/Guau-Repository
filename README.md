@@ -1,8 +1,8 @@
 # Guau-Repository
 A Game about Dressing  dogs for the Cold!!!
+
 Play it here: https://ghastt.itch.io/guau-boutique-para-perros
 
-[guau menu](https://github.com/GastF/Guau-Repository/assets/113557950/3aceba6e-a1db-4117-8430-9cbebd69e782)
 
 Guau! is a game about dressing a dog with the requiered cloth before he goes out of the conveyor belt.
 You have to throw the boxes into the claw and the dressed dogs to the exit (pushing them off the screen to the far right)
